@@ -11,6 +11,11 @@ def packet_handler(packet):
         icmp_packet = packet[ICMP]
         if len(icmp_packet) > 65535:
             logging.warning("Ping of Death detected!")
+        if packet[ICMP].type == 8:
+            src_ip = packet[IP].src
+            dst_ip = packet[IP].dst
+            print(f"Ping detected from: {src_ip} to {dst_ip}")
+
 
 def log_system_resources():
     cpu_percent = psutil.cpu_percent(interval=1)
