@@ -5,7 +5,6 @@ import psutil
 logging.basicConfig(filename='system_network.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def packet_handler(packet):
-
     logging.info(f"Packet received: {packet.summary()}")
     if ICMP in packet:
         icmp_packet = packet[ICMP]
@@ -15,7 +14,6 @@ def packet_handler(packet):
             src_ip = packet[IP].src
             dst_ip = packet[IP].dst
             print(f"Ping detected from: {src_ip} to {dst_ip}")
-
 
 def log_system_resources():
     cpu_percent = psutil.cpu_percent(interval=1)
@@ -36,7 +34,6 @@ def log_system_resources():
         logging.info(f"Disk Usage: {disk_percent}%")
 
 sniff(prn=packet_handler, store=False)
-
 
 while True:
     log_system_resources()
